@@ -28,7 +28,7 @@ jobs:
         device: ["sensor", "executive"]
     # conrainer with pre-installed mender-artifact and mender-cli tools
     container:
-      image: mendersoftware/mender-ci-tools:mender-master
+      image: mendersoftware/mender-ci-tools:1.0.0
     steps:
       # Checkout git repository
       - uses: actions/checkout@v2

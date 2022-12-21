@@ -15,7 +15,7 @@ variables:
   MENDER_ARTIFACT_NAME: "" # Mender Artifact file name in the `MENDER_ARTIFACTS_FOLDER` folder
 
 .mender:upload:artifact:
-  image: mendersoftware/mender-ci-tools:mender-master
+  image: mendersoftware/mender-ci-tools:1.0.0
   script:
     # input validation
     - if [ -z "${MENDER_SERVER_URL}" ]; then

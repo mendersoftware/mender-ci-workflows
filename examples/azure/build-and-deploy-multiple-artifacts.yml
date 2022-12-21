@@ -49,7 +49,7 @@ jobs:
   pool:
     vmImage: ubuntu-latest
   # container with pre-installed mender-artifact and mender-cli tools
-  container: mendersoftware/mender-ci-tools:mender-master
+  container: mendersoftware/mender-ci-tools:1.0.0
   steps:
   # Creates Mender Artifact
   # In this example, hello-mender.py represents a single file Python application that we have
@@ -79,7 +79,7 @@ jobs:
   pool:
     vmImage: ubuntu-latest
   # conrainer with pre-installed mender-artifact and mender-cli tools
-  container: mendersoftware/mender-ci-tools:mender-master
+  container: mendersoftware/mender-ci-tools:1.0.0
   steps:
   # Creates Mender Artifact
   # In this example, hello-mender.py represents a single file Python application that we have

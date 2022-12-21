@@ -29,7 +29,7 @@ jobs:
     runs-on: ubuntu-latest
     # conrainer with pre-installed mender-artifact and mender-cli tools
     container:
-      image: mendersoftware/mender-ci-tools:mender-master
+      image: mendersoftware/mender-ci-tools:1.0.0
     outputs:
       mender_release_name: ${{ steps.release_name.outputs.mender_release_name }}
       mender_devices_group: ${{ steps.deployment_group.outputs.mender_devices_group }}
