@@ -25,7 +25,7 @@ variables:
   MENDER_DEPLOYMENT_NAME: ""  # The name of Mender deployment
 
 .mender:create:deployment:
-  image: mendersoftware/mender-ci-tools:mender-master
+  image: mendersoftware/mender-ci-tools:1.0.0
   script:
     # input validation
     - if [ -z "${MENDER_SERVER_URL}" ]; then

@@ -41,7 +41,7 @@ pool:
   vmImage: ubuntu-latest
 
 # conrainer with pre-installed mender-artifact and mender-cli tools
-container: mendersoftware/mender-ci-tools:mender-master
+container: mendersoftware/mender-ci-tools:1.0.0
 
 
 steps:

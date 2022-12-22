@@ -14,7 +14,7 @@ include:
     ref: 'master'
 
 .mender:build:artifact:
-  image: mendersoftware/mender-ci-tools:mender-master
+  image: mendersoftware/mender-ci-tools:1.0.0
   before_script:
     - if [ ! -d ${MENDER_ARTIFACTS_FOLDER} ]; then mkdir -p ${MENDER_ARTIFACTS_FOLDER}; fi
   script:
