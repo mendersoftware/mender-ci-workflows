@@ -28,7 +28,7 @@ RUN git clone https://github.com/mendersoftware/mender.git . && \
     git checkout $MENDER_CLIENT_VERSION && \
     DESTDIR=/install-modules-gen make install-modules-gen
 
-FROM docker:25-dind
+FROM docker:26-dind
 ARG MENDER_APP_UPDATE_MODULE_VERSION
 COPY --from=cli-builder /go/src/github.com/mendersoftware/mender-cli /usr/bin/
 COPY --from=artifact-builder /go/src/github.com/mendersoftware/mender-artifact/mender-artifact /usr/bin/
