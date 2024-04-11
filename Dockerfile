@@ -28,12 +28,7 @@ RUN git clone https://github.com/mendersoftware/mender.git . && \
     git checkout $MENDER_CLIENT_VERSION && \
     DESTDIR=/install-modules-gen make install-modules-gen
 
-FROM docker:25-dind
-ARG MENDER_APP_UPDATE_MODULE_VERSION
+FROM debian:12.5-slim
 COPY --from=cli-builder /go/src/github.com/mendersoftware/mender-cli /usr/bin/
 COPY --from=artifact-builder /go/src/github.com/mendersoftware/mender-artifact/mender-artifact /usr/bin/
 COPY --from=client-builder /install-modules-gen/usr/bin/ /usr/bin/
-# The --mount instead of COPY is used to decrease the image layer size. Requires: 'export DOCKER_BUILDKIT=1'
-RUN wget https://raw.githubusercontent.com/mendersoftware/app-update-module/$MENDER_APP_UPDATE_MODULE_VERSION/gen/app-gen -O /usr/bin/app-gen && chmod +x /usr/bin/app-gen
-RUN --mount=type=bind,source=apk-requirements.txt,target=/apk-requirements.txt \
-    apk add --no-cache $(cat apk-requirements.txt)
