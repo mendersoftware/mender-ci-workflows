@@ -32,3 +32,6 @@ FROM debian:12.5-slim
 COPY --from=cli-builder /go/src/github.com/mendersoftware/mender-cli /usr/bin/
 COPY --from=artifact-builder /go/src/github.com/mendersoftware/mender-artifact/mender-artifact /usr/bin/
 COPY --from=client-builder /install-modules-gen/usr/bin/ /usr/bin/
+
+# Bring in libssl for mender-artifact signing to work
+RUN apt-get update && apt-get install libssl3 -y && apt-get clean
