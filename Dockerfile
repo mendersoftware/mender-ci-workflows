@@ -28,10 +28,10 @@ RUN git clone https://github.com/mendersoftware/mender.git . && \
     git checkout $MENDER_CLIENT_VERSION && \
     DESTDIR=/install-modules-gen make install-modules-gen
 
-FROM debian:12.5-slim
+FROM debian:12.8-slim
 COPY --from=cli-builder /go/src/github.com/mendersoftware/mender-cli /usr/bin/
 COPY --from=artifact-builder /go/src/github.com/mendersoftware/mender-artifact/mender-artifact /usr/bin/
 COPY --from=client-builder /install-modules-gen/usr/bin/ /usr/bin/
 
 # Bring in libssl for mender-artifact signing to work
-RUN apt-get update && apt-get install libssl3 -y && apt-get clean
+RUN apt-get update && apt-get install libssl3 ca-certificates -y && apt-get clean
