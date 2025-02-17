@@ -34,4 +34,4 @@ COPY --from=artifact-builder /go/src/github.com/mendersoftware/mender-artifact/m
 COPY --from=client-builder /install-modules-gen/usr/bin/ /usr/bin/
 
 # Bring in libssl for mender-artifact signing to work
-RUN apt-get update && apt-get install libssl3 ca-certificates -y && apt-get clean
+RUN apt-get update && apt-get install libssl3 ca-certificates curl -y && apt-get clean
