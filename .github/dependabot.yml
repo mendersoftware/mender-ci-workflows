@@ -6,3 +6,5 @@ updates:
     package-ecosystem: docker
     schedule:
       interval: weekly
+    reviewers:
+      - "mendersoftware/client-dependabot-reviewers"
