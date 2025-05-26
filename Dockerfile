@@ -28,7 +28,7 @@ RUN git clone https://github.com/mendersoftware/mender.git . && \
     git checkout $MENDER_CLIENT_VERSION && \
     DESTDIR=/install-modules-gen make install-modules-gen
 
-FROM debian:12.10-slim
+FROM debian:12.11-slim
 COPY --from=cli-builder /go/src/github.com/mendersoftware/mender-cli /usr/bin/
 COPY --from=artifact-builder /go/src/github.com/mendersoftware/mender-artifact/mender-artifact /usr/bin/
 COPY --from=client-builder /install-modules-gen/usr/bin/ /usr/bin/
