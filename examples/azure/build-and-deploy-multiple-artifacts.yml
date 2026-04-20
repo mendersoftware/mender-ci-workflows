@@ -60,7 +60,7 @@ jobs:
       curl -O https://raw.githubusercontent.com/mendersoftware/mender-ci-workflows/master/examples/hello-mender.py
       chmod 755 hello-mender.py
       single-file-artifact-gen \
-        --device-type raspberrypi4 \
+        --compatible-types raspberrypi4 \
         -o ${MENDER_ARTIFACT_NAME_ONE} \
         -n ${MENDER_RELEASE_NAME_ONE} \
         --software-name hello-mender \
@@ -90,7 +90,7 @@ jobs:
       curl -O https://raw.githubusercontent.com/mendersoftware/mender-ci-workflows/master/examples/hello-mender.py
       chmod 755 hello-mender.py
       single-file-artifact-gen \
-        --device-type raspberrypi4 \
+        --compatible-types raspberrypi4 \
         -o ${MENDER_ARTIFACT_NAME_TWO} \
         -n ${MENDER_RELEASE_NAME_TWO} \
         --software-name hello-mender \

@@ -54,7 +54,7 @@ steps:
     curl -O https://raw.githubusercontent.com/mendersoftware/mender-ci-workflows/master/examples/hello-mender.py
     chmod 755 hello-mender.py
     single-file-artifact-gen \
-      --device-type raspberrypi4 \
+      --compatible-types raspberrypi4 \
       -o ${MENDER_ARTIFACT_NAME} \
       -n ${MENDER_RELEASE_NAME} \
       --software-name hello-mender \

@@ -90,7 +90,7 @@ jobs:
           chmod 755 hello-mender.py
           MENDER_ARTIFACT_NAME=artifact_${MENDER_RELEASE_NAME}.mender
           single-file-artifact-gen \
-            --device-type raspberrypi4 \
+            --compatible-types raspberrypi4 \
             -o ${MENDER_ARTIFACTS_CI_ARTIFACT_PATH}/${MENDER_ARTIFACT_NAME} \
             -n ${MENDER_RELEASE_NAME} \
             --software-name hello-mender \
