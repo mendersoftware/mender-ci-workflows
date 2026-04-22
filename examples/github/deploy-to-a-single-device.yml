@@ -24,7 +24,7 @@ jobs:
   #
   build-and-deploy:
     runs-on: ubuntu-latest
-    # conrainer with pre-installed mender-artifact and mender-cli tools
+    # container with pre-installed mender-artifact and mender-cli tools
     container:
       image: mendersoftware/mender-ci-tools:1.0.0
     steps:
