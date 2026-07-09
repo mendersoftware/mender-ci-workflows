@@ -1,5 +1,19 @@
 variables:
   DOCKER_REPOSITORY: mendersoftware/mender-ci-tools
+  MULTIPLATFORM_BUILD: "true"
+  MULTIPLATFORM_PLATFORMS: "linux/amd64,linux/arm64"
+  DOCKER_HOST:
+    value: 'tcp://docker:2376'
+    description: "Required to run dind inside k8s runners with TLS"
+  DOCKER_TLS_CERTDIR:
+    value: '/certs'
+    description: "The cert dir inside the gitlab runner. Don't change this."
+  DOCKER_TLS_VERIFY:
+    value: 1
+    description: "Enable TLS verification for docker in dind"
+  DOCKER_CERT_PATH:
+    value: "$DOCKER_TLS_CERTDIR/client"
+    description: "Used for docker entrypoints. See https://gitlab.com/gitlab-org/gitlab-runner/-/issues/4125"
 
 stages:
   - test
@@ -14,6 +28,38 @@ include:
       - '.gitlab-ci-check-docker-build.yml'
       - '.gitlab-ci-check-docker-release-indep.yml'
       - '.gitlab-ci-github-status-updates.yml'
+
+# excludes non multiplatform build job
+build:docker:
+  rules:
+    - when: never
+
+# excludes non multiplatform build job
+publish:image:
+  rules:
+    - when: never
+
+# docker-release-indep only patches publish:image's rules for release-candidate tags;
+# carry that rule over so RC tags keep publishing now that publish:image is disabled.
+publish:image-multiplatform:
+  rules:
+    - if: $MULTIPLATFORM_BUILD != "true"
+      when: never
+    - if: '$CI_COMMIT_BRANCH =~ /^(main|master|staging|production|feature-.+|v?\d+\.\d+\.x)$/'
+    - if: '$CI_COMMIT_TAG =~ /^[0-9]+\.[0-9]+\.[0-9]+\-build[0-9]+$/'
+
+# docker-release-indep's publish:image:final-tag used docker pull/tag/push, which only
+# handles the runner's own platform and would collapse the final release tag to
+# single-arch. regctl image copy preserves the multi-arch manifest list instead.
+publish:image:final-tag:
+  image: "registry.gitlab.com/northern.tech/mender/mender-test-containers/docker-multiplatform-buildx:master"
+  before_script:
+    - 'docker login -u "$REGISTRY_MENDER_IO_USERNAME" -p "$REGISTRY_MENDER_IO_PASSWORD" registry.mender.io || echo "Warning: registry.mender.io credentials unavailable or invalid"'
+    - 'docker login -u "$DOCKER_HUB_USERNAME" -p "$DOCKER_HUB_PASSWORD" || echo "Warning: Docker credentials unavailable or invalid"'
+    - apk add --no-cache git
+  script:
+    - last_release_candidate=$(git tag --contains ${CI_COMMIT_SHA} | sort -t 'd' -k 2,2n | tail -n 1)
+    - regctl image copy $DOCKER_REPOSITORY:$last_release_candidate $DOCKER_REPOSITORY:${CI_COMMIT_REF_NAME}
 
 .trigger:update-dependencies:mender-docs-site:
   inherit:
