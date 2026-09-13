@@ -93,7 +93,7 @@ trigger:update-dependencies:mender-docs-site:manual:
     MENDER_CLI_VERSION: ""
     MENDER_ARTIFACT_VERSION: ""
     MENDER_CLIENT_VERSION: ""
-  image: debian:11-slim
+  image: debian:13-slim
   before_script:
     # Install and setup hub
     - apt-get update && apt-get install -qqy hub

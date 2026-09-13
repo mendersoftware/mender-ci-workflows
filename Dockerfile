@@ -30,7 +30,7 @@ RUN curl -Lo $MENDER_CLIENT_VERSION.zip https://github.com/mendersoftware/mender
     cmake -S /tmp/mender-$MENDER_CLIENT_VERSION -B /build -DCMAKE_INSTALL_PREFIX=/install-modules-gen -D MENDER_NO_BUILD=1; \
     make -C /build install-modules-gen;
 
-FROM debian:13.4-slim
+FROM debian:13.6-slim
 COPY --from=cli-builder /go/src/github.com/mendersoftware/mender-cli /usr/bin/
 COPY --from=artifact-builder /go/src/github.com/mendersoftware/mender-artifact/mender-artifact /usr/bin/
 COPY --from=client-builder /install-modules-gen/bin/ /usr/bin/
