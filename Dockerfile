@@ -1,7 +1,6 @@
 ARG MENDER_CLI_VERSION=v2.0.0
 ARG MENDER_ARTIFACT_VERSION=4.4.1
 ARG MENDER_CLIENT_VERSION=5.1.0
-ARG MENDER_APP_UPDATE_MODULE_VERSION=master
 
 FROM golang:1.27 as cli-builder
 WORKDIR /go/src/github.com/mendersoftware/mender-cli
