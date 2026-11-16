@@ -31,5 +31,42 @@
       "semanticCommitType": "ci",
       "semanticCommitScope": ""
     }
+  ],
+
+  "customManagers": [
+    // Mender tool versions as Dockerfile ARGs.
+    {
+      "customType": "regex",
+      "managerFilePatterns": ["/Dockerfile/"],
+      "matchStrings": [
+        "MENDER_CLI_VERSION=\\s*[\"']?(?<currentValue>[\\d\\.]+)[\"']?"
+      ],
+      "depNameTemplate": "mendersoftware/mender-cli",
+      "datasourceTemplate": "github-releases",
+      "extractVersionTemplate": "^v?(?<version>.*)$",
+      "versioningTemplate": "semver"
+    },
+    {
+      "customType": "regex",
+      "managerFilePatterns": ["/Dockerfile/"],
+      "matchStrings": [
+        "MENDER_ARTIFACT_VERSION=\\s*[\"']?(?<currentValue>[\\d\\.]+)[\"']?"
+      ],
+      "depNameTemplate": "mendersoftware/mender-artifact",
+      "datasourceTemplate": "github-releases",
+      "extractVersionTemplate": "^v?(?<version>.*)$",
+      "versioningTemplate": "semver"
+    },
+    {
+      "customType": "regex",
+      "managerFilePatterns": ["/Dockerfile/"],
+      "matchStrings": [
+        "MENDER_CLIENT_VERSION=\\s*[\"']?(?<currentValue>[\\d\\.]+)[\"']?"
+      ],
+      "depNameTemplate": "mendersoftware/mender",
+      "datasourceTemplate": "github-releases",
+      "extractVersionTemplate": "^v?(?<version>.*)$",
+      "versioningTemplate": "semver"
+    }
   ]
 }
